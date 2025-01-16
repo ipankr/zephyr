@@ -52,6 +52,15 @@ config SYS_HEAP_RUNTIME_STATS
 	help
 	  Gather system heap runtime statistics.
 
+config SYS_HEAP_ARRAY_SIZE
+	int "Size of array to store heap pointers"
+	default 0
+	help
+	  The size of the internal array to store a heap pointer
+	  during heap initialization. The default array size is zero,
+	  which disables the feature. To enable the feature,
+	  assign a value greater than zero.
+
 config SYS_HEAP_LISTENER
 	bool "sys_heap event notifications"
 	select HEAP_LISTENER
