@@ -37,6 +37,9 @@ zephyr_library_sources_ifdef(CONFIG_MCUMGR_TRANSPORT_DUMMY
 zephyr_library_sources_ifdef(CONFIG_MCUMGR_TRANSPORT_RAW_DUMMY
   src/smp_raw_dummy.c
 )
+zephyr_library_sources_ifdef(CONFIG_MCUMGR_TRANSPORT_I2C
+  src/smp_i2c.c
+)
 
 if(CONFIG_MCUMGR_TRANSPORT_SERIAL_HAS_SMP_OVER_CONSOLE OR
   CONFIG_MCUMGR_TRANSPORT_SERIAL_HAS_RAW_BINARY_NON_SMP_OVER_CONSOLE

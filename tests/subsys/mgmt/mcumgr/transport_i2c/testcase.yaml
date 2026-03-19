@@ -1,0 +1,18 @@
+#
+# Copyright (c) 2026 CrossControl AB
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+common:
+  tags:
+    - mgmt
+    - mcumgr
+    - transport
+    - i2c
+  build_only: true
+tests:
+  mgmt.mcumgr.transport.i2c:
+    platform_allow:
+      - native_sim
+      - native_sim/native/64
+      - frdm_mcxa266

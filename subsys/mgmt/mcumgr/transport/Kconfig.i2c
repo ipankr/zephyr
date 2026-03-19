@@ -1,0 +1,56 @@
+# Copyright (c) 2026 CrossControl AB
+# SPDX-License-Identifier: Apache-2.0
+
+# The Kconfig file is dedicated to I2C transport of MCUmgr
+# subsystem and provides Kconfig options to control aspects of
+# the transport.
+#
+# Options defined in this file should be prefixed:
+#  MCUMGR_TRANSPORT_I2C_
+
+menuconfig MCUMGR_TRANSPORT_I2C
+	bool "I2C MCUmgr SMP transport (target mode)"
+	depends on I2C
+	depends on I2C_TARGET
+	help
+	  Enables the I2C SMP transport for MCUmgr. The device operates as
+	  an I2C target (slave) and responds to SMP requests from an I2C
+	  controller (master). This allows firmware updates and management
+	  commands to be sent over I2C.
+
+	  The smp-i2c devicetree alias must be set to the I2C controller
+	  node that the device should act as a target on.
+
+if MCUMGR_TRANSPORT_I2C
+
+config MCUMGR_TRANSPORT_I2C_MTU
+	int "I2C SMP MTU"
+	default 256
+	help
+	  Maximum size of a single SMP payload over I2C, in bytes (not
+	  counting the 2-byte length prefix). This value must satisfy the
+	  following relation:
+	  MCUMGR_TRANSPORT_I2C_MTU <= MCUMGR_TRANSPORT_NETBUF_SIZE + 2
+
+config MCUMGR_TRANSPORT_I2C_TARGET_ADDRESS
+	hex "I2C target address for SMP"
+	default 0x60
+	help
+	  The 7-bit I2C address at which this device will respond to
+	  SMP commands. The address must not conflict with other I2C
+	  devices on the same bus.
+
+config MCUMGR_TRANSPORT_I2C_INIT_PRIORITY
+	int "I2C SMP transport initialization priority"
+	default 90
+	help
+	  Initialization priority for the I2C SMP transport.
+	  Must be greater than the I2C controller driver priority (typically
+	  CONFIG_I2C_INIT_PRIORITY) so the bus is ready before registering
+	  the target.
+
+module = MCUMGR_TRANSPORT_I2C
+module-str = mcumgr_transport_i2c
+source "subsys/logging/Kconfig.template.log_config"
+
+endif # MCUMGR_TRANSPORT_I2C

@@ -1,0 +1,10 @@
+/*
+ * Copyright (c) 2026 CrossControl AB
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/ {
+	aliases {
+		smp-i2c = &lpi2c1;
+	};
+};
